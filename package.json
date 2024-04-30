@@ -1,0 +1,18 @@
+{
+  "name": "myfirst",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --deploy-key a5e79c0f81712c2327e9fa63ea382983 --ipfs http://127.0.0.1:5001 --node https://api.studio.thegraph.com/deploy/ myfirst" ,
+    "create-local": "graph create --node http://localhost:8020/ myfirst",
+    "remove-local": "graph remove --node http://localhost:8020/ myfirst",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 myfirst",
+    "test": "graph test"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.71.0",
+    "@graphprotocol/graph-ts": "0.32.0"
+  },
+  "devDependencies": { "matchstick-as": "0.5.0" }
+}

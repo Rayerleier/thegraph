@@ -1,0 +1,58 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: nftFactory
+    network: ethereum/sepolia
+    source:
+      address: "0x9e72881669c7b39d4283B3ce11922C248B2c5755"
+      abi: nftFactory
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - NFTCreated
+        - NFTRegesitered
+        - OwnershipTransferred
+      abis:
+        - name: nftFactory
+          file: ./abis/nftFactory.json
+      eventHandlers:
+        - event: NFTCreated(address)
+          handler: handleNFTCreated
+        - event: NFTRegesitered(address)
+          handler: handleNFTRegesitered
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/nft-factory.ts
+  - kind: ethereum
+    name: s2NFT
+    network: ethereum/sepolia
+    source:
+      address: "0x02AD0DD70b3c3aA3529895362B2566F6b0F6fA14"
+      abi: s2NFT
+      startBlock: 5809204
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+        - Approval
+        - ApprovalForAll
+      abis:
+        - name: s2NFT
+          file: ./abis/s2NFT.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+      file: ./src/s-2-nft.ts
